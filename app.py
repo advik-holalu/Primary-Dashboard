@@ -159,6 +159,23 @@ with tab1:
     fig_sub.update_layout(showlegend=False)
     st.plotly_chart(fig_sub, use_container_width=True)
 
+    # --------------------------------------------------------
+    # CUSTOMER GROUP BREAKDOWN (ADDED BACK)
+    # --------------------------------------------------------
+    cg_rev = (
+        filtered.groupby("Customer Group", observed=False)["Amount excluding tax"]
+        .sum().sort_values(ascending=False).reset_index()
+    )
+
+    fig_cg = px.bar(
+        cg_rev,
+        x="Customer Group", y="Amount excluding tax",
+        text_auto=True,
+        color="Customer Group",
+        title="Revenue by Customer Group"
+    )
+    fig_cg.update_layout(showlegend=False)
+    st.plotly_chart(fig_cg, use_container_width=True)
 
     # --------------------------------------------------------
     # Q1 / Q2 / OCT REGION COMPARISON (UNCHANGED)
